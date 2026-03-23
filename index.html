@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sailing Coaching</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       WEBSITE CONTENT CONTROL CENTER
+       Edit anything below to update your site instantly.
+       No other files or folders need to be touched.
+  ============================================================ -->
+  <script id="CONTENT_CONTROL_CENTER">
+
+    const SITE = {
+
+      // ── Business identity ──────────────────────────────────────
+      businessName:   "Muskoka Sailing",
+      tagline:        "Two-coach sailing instruction in Muskoka",
+      phone:          "647-220-3060",
+      email:          "kerbelallan@gmail.com",
+      location:       "Muskoka, ON",
+
+      // ── Navigation labels ─────────────────────────────────────
+      nav: {
+        home:         "Home",
+        about:        "About Us",
+        prices:       "Prices",
+        contact:      "Contact",
+      },
+
+      // ── Hero section ──────────────────────────────────────────
+      hero: {
+        heading:      "Learn to Sail with Confidence",
+        subheading:   "Our unique two-coach system puts one instructor on your boat and one coach on a motorboat — so you get real-time feedback both on deck and from the water.",
+        ctaLabel:     "Book a Lesson",
+      },
+
+      // ── About section ─────────────────────────────────────────
+      about: {
+        heading:      "Meet Your Coaches",
+        intro:        "We're two passionate 14-year-olds who grew up on the lakes of Muskoka and decided to turn our shared love of sailing into a proper coaching program. We might be young, but we know these waters and we know how to teach — we'll prove it the moment you step on the boat.",
+        coach1: {
+          name:       "Coach — [Allan Kerbel]",
+          bio:        "Current competitive racer. I've been sailing Lake Muskoka since I was a baby. Can 5, and firm believer that the best way to learn is to actually sail. I'll be the one on the boat with you.",
+        },
+        coach2: {
+          name:       "Coach — [Ben Faught]",
+          bio:        "Allan's race crew. I run the chase boat and call out corrections you can't see from the cockpit. I also handle the camera for your post-session debrief clips.",
+        },
+      },
+
+      prices: {
+        heading:      "Pricing",
+        note:         "All prices are per session. Text or call us to book.",
+        items: [
+          {
+            service:  "Intro Lesson (1hr 30 mins)",
+            price:    "$150",
+            detail:   "Perfect for beginners. Basic sail trim, tacks & gybes.",
+          },
+          {
+            service:  "Boat Stepping Included (mast raise/lower)",
+            price:    "$180",
+            detail:   "Full setup or pack.",
+          },
+        ],
+      },
+
+    }; // ── END CONTENT CONTROL CENTER ──────────────────────────
+
+  </script>
+
+  <style>
+    :root {
+      --navy:   #0a1f3c;
+      --navy2:  #122a52;
+      --white:  #ffffff;
+      --cream:  #f4f1eb;
+      --gold:   #c8a84b;
+      --wave:   #1a4a7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      margin: 0;
+    }
+
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+    /* ── Rope-texture top bar ── */
+    .rope-bar {
+      background: repeating-linear-gradient(
+        90deg,
+        var(--gold) 0px, var(--gold) 3px,
+        transparent 3px, transparent 9px,
+        var(--gold) 9px, var(--gold) 12px,
+        transparent 12px, transparent 18px
+      );
+      height: 5px;
+    }
+
+    /* ── Sticky nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      border-bottom: 2px solid var(--gold);
+    }
+
+    nav a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.75rem 0.9rem;
+      display: inline-block;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* ── Hero ── */
+    #home {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--wave) 55%, #1d6a9e 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 1.5rem 4rem;
+    }
+
+    /* Animated wave SVG */
+    .wave-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    /* Compass rose decoration */
+    .compass {
+      position: absolute;
+      top: 2rem; right: -2rem;
+      width: 220px; height: 220px;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--navy);
+    }
+
+    /* ── Card ── */
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(10,31,60,0.08);
+      overflow: hidden;
+      border: 1px solid rgba(10,31,60,0.07);
+    }
+
+    /* ── Price card highlight ── */
+    .price-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(10,31,60,0.14);
+      transition: all 0.25s ease;
+    }
+
+    /* ── Availability table ── */
+    table { border-collapse: collapse; width: 100%; }
+    th {
+      background: var(--navy);
+      color: white;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.6rem 0.5rem;
+    }
+    td {
+      padding: 0.55rem 0.5rem;
+      font-size: 0.78rem;
+      border-bottom: 1px solid rgba(10,31,60,0.07);
+      text-align: center;
+    }
+    tr:nth-child(even) td { background: rgba(10,31,60,0.03); }
+    td:first-child { font-weight: 600; text-align: left; padding-left: 0.8rem; color: var(--navy2); }
+
+    .slot-open {
+      background: #e6f4ea;
+      color: #1a6b35;
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      white-space: nowrap;
+      display: inline-block;
+    }
+    .slot-closed {
+      color: #c0bfbe;
+      font-size: 0.7rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.55);
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── CTA button ── */
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border-radius: 4px;
+      padding: 0.75rem 1.8rem;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: filter 0.2s;
+      text-decoration: none;
+    }
+    .btn-gold:hover { filter: brightness(1.08); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.55);
+      color: white;
+      font-weight: 500;
+      border-radius: 4px;
+      padding: 0.7rem 1.6rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── Divider ── */
+    .gold-rule { height: 2px; background: var(--gold); width: 3rem; }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Mobile tweaks ── */
+    @media (max-width: 480px) {
+      th, td { font-size: 0.65rem; padding: 0.45rem 0.3rem; }
+      .slot-open { font-size: 0.6rem; padding: 0.1rem 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Rope-stripe accent -->
+<div class="rope-bar"></div>
+
+<!-- ═══════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<nav id="navbar">
+  <div style="max-width:900px;margin:auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:0 1rem;">
+    <span style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;padding:0.75rem 0;font-weight:800;letter-spacing:0.03em;" id="nav-brand"></span>
+    <div>
+      <a href="#home"         id="nav-home"></a>
+      <a href="#about"        id="nav-about"></a>
+      <a href="#prices"       id="nav-prices"></a>
+      <a href="#contact"      id="nav-contact"></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HOME / HERO
+════════════════════════════════════════ -->
+<section id="home">
+
+  <!-- Compass rose decoration -->
+  <svg class="compass" viewBox="0 0 200 200" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="96" stroke="white" stroke-width="1.5" fill="none"/>
+    <circle cx="100" cy="100" r="70" stroke="white" stroke-width="0.8" fill="none"/>
+    <polygon points="100,4 106,96 100,108 94,96" fill="white"/>
+    <polygon points="100,196 106,104 100,92 94,104" fill="white" opacity="0.6"/>
+    <polygon points="196,100 104,106 92,100 104,94" fill="white" opacity="0.6"/>
+    <polygon points="4,100 96,106 108,100 96,94" fill="white" opacity="0.6"/>
+    <text x="100" y="22" text-anchor="middle" font-size="10" fill="white" font-weight="bold">N</text>
+    <text x="100" y="190" text-anchor="middle" font-size="10" fill="white">S</text>
+    <text x="185" y="104" text-anchor="middle" font-size="10" fill="white">E</text>
+    <text x="15" y="104" text-anchor="middle" font-size="10" fill="white">W</text>
+    <circle cx="100" cy="100" r="6" fill="white"/>
+  </svg>
+
+  <div style="max-width:680px;margin:auto;position:relative;z-index:1;">
+
+    <!-- Sailboat icon -->
+    <div style="margin-bottom:1.5rem;">
+      <svg width="52" height="42" viewBox="0 0 52 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26 2 L26 34" stroke="rgba(255,255,255,0.7)" stroke-width="1.5"/>
+        <path d="M26 4 L8 30 L26 30 Z" fill="rgba(255,255,255,0.9)"/>
+        <path d="M26 8 L44 28 L26 28 Z" fill="rgba(200,168,75,0.8)"/>
+        <path d="M6 36 Q26 30 46 36" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="26" cy="39" rx="22" ry="3" fill="rgba(255,255,255,0.12)"/>
+      </svg>
+    </div>
+
+    <div class="section-label" id="hero-label" style="color:rgba(200,168,75,0.9);"></div>
+
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;line-height:1.1;margin:0.4rem 0 1.2rem;color:white;" id="hero-heading"></h1>
+
+    <p style="font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,0.82);max-width:560px;margin-bottom:2rem;" id="hero-sub"></p>
+
+    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+      <a href="#prices" class="btn-gold" id="hero-cta"></a>
+      <a href="#about"  class="btn-outline">Meet the Coaches</a>
+    </div>
+
+    <!-- Two-coach callout pill -->
+    <div style="margin-top:2.5rem;display:inline-flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:999px;padding:0.45rem 1rem;font-size:0.78rem;color:rgba(255,255,255,0.85);backdrop-filter:blur(4px);">
+      <span>⛵</span><span>One coach aboard · One coach on the chase boat</span><span>🚤</span>
+    </div>
+  </div>
+
+  <!-- Wave SVG -->
+  <svg class="wave-overlay" viewBox="0 0 1200 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,50 C150,100 350,0 500,50 C650,100 800,0 1000,50 C1100,75 1150,60 1200,50 L1200,100 L0,100 Z" fill="white"/>
+    <path d="M0,70 C200,30 400,90 600,60 C800,30 1000,80 1200,60 L1200,100 L0,100 Z" fill="white" opacity="0.5"/>
+  </svg>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     ABOUT US
+════════════════════════════════════════ -->
+<section id="about" style="padding:4.5rem 1.5rem;background:var(--cream);">
+  <div style="max-width:800px;margin:auto;" class="reveal">
+
+    <p class="section-label">Who we are</p>
+    <h2 class="section-title" id="about-heading"></h2>
+    <div class="gold-rule" style="margin:1rem 0 1.5rem;"></div>
+
+    <p style="font-size:1.02rem;line-height:1.75;color:#3a3a3a;margin-bottom:2.5rem;" id="about-intro"></p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;">
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;margin:0 0 0.6rem;color:var(--navy);" id="coach1-name"></h3>
+        <p style="font-size:0.9rem;line-height:1.65;color:#555;margin:0;" id="coach1-bio"></p>
+      </div>
+
+      <div class="card" style="padding:1.5rem;">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;margin:0 0 0.6rem;color:var(--navy);" id="coach2-name"></h3>
+        <p style="font-size:0.9rem;line-height:1.65;color:#555;margin:0;" id="coach2-bio"></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     PRICES
+════════════════════════════════════════ -->
+<section id="prices" style="padding:4.5rem 1.5rem;background:white;">
+  <div style="max-width:800px;margin:auto;" class="reveal">
+
+    <p class="section-label">What we charge</p>
+    <h2 class="section-title" id="prices-heading"></h2>
+    <div class="gold-rule" style="margin:1rem 0 0.6rem;"></div>
+    <p style="font-size:0.88rem;color:#888;margin-bottom:2rem;" id="prices-note"></p>
+
+    <div id="price-list" style="display:flex;flex-direction:column;gap:0.85rem;"></div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     AVAILABILITY (simplified)
+════════════════════════════════════════ -->
+<section id="availability" style="padding:3rem 1.5rem;background:var(--cream);">
+  <div style="max-width:800px;margin:auto;text-align:center;" class="reveal">
+    <div class="card" style="padding:2rem 1.5rem;display:inline-block;max-width:480px;width:100%;">
+      <div style="font-size:2rem;margin-bottom:0.75rem;">📅</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--navy);margin:0 0 0.6rem;">Check Availability</h3>
+      <p style="color:#666;font-size:0.95rem;line-height:1.65;margin:0 0 1.2rem;">
+        For available times, please call or email us directly and we'll find a slot that works for you.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;align-items:center;">
+        <a href="tel:6472203060" style="color:var(--navy2);font-weight:600;font-size:0.95rem;text-decoration:none;">📞 647-220-3060</a>
+        <a href="mailto:kerbelallan@gmail.com" style="color:var(--navy2);font-weight:600;font-size:0.95rem;text-decoration:none;">✉️ kerbelallan@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     CONTACT
+════════════════════════════════════════ -->
+<section id="contact" style="padding:4.5rem 1.5rem;background:var(--navy);">
+  <div style="max-width:620px;margin:auto;text-align:center;" class="reveal">
+
+    <p class="section-label" style="color:var(--gold);">Get in touch</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;color:white;margin:0.4rem 0 1rem;">Ready to get on the water?</h2>
+    <p style="color:rgba(255,255,255,0.7);font-size:1rem;line-height:1.7;margin-bottom:2.2rem;">
+      Text or call us to book a session. We usually respond within a few hours.
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:1rem;align-items:center;">
+      <a id="contact-phone-link" class="btn-gold" style="font-size:1.1rem;padding:0.9rem 2.2rem;"></a>
+      <a id="contact-email-link" class="btn-outline"></a>
+    </div>
+
+    <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.45);font-size:0.82rem;" id="contact-location"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer style="padding:1.2rem 1.5rem;text-align:center;font-size:0.78rem;border-top:1px solid rgba(255,255,255,0.08);">
+  <span id="footer-text"></span>
+</footer>
+
+<div class="rope-bar"></div>
+
+
+<!-- ═══════════════════════════════════════
+     RENDER ENGINE  (do not edit below)
+════════════════════════════════════════ -->
+<script>
+  // ── Helpers ───────────────────────────────────────
+  const $  = id => document.getElementById(id);
+  const set = (id, text) => { if ($(id)) $(id).textContent = text; };
+
+  // ── Populate static text ──────────────────────────
+  function renderSite() {
+    const S = SITE;
+
+    // Nav
+    set('nav-brand',   S.businessName);
+    set('nav-home',    S.nav.home);
+    set('nav-about',   S.nav.about);
+    set('nav-prices',  S.nav.prices);
+    set('nav-contact', S.nav.contact);
+
+    // Hero
+    $('hero-label').textContent = S.location;
+    set('hero-heading', S.hero.heading);
+    set('hero-sub',     S.hero.subheading);
+    set('hero-cta',     S.hero.ctaLabel);
+
+    // About
+    set('about-heading', S.about.heading);
+    set('about-intro',   S.about.intro);
+    set('coach1-name',   S.about.coach1.name);
+    set('coach1-bio',    S.about.coach1.bio);
+    set('coach2-name',   S.about.coach2.name);
+    set('coach2-bio',    S.about.coach2.bio);
+
+    // Prices
+    set('prices-heading', S.prices.heading);
+    set('prices-note',    S.prices.note);
+    const list = $('price-list');
+    S.prices.items.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'card price-card';
+      div.style.cssText = 'padding:1.1rem 1.25rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;transition:all 0.25s ease;cursor:default;';
+      div.innerHTML = `
+        <div>
+          <div style="font-weight:600;font-size:1rem;color:var(--navy);">${item.service}</div>
+          <div style="font-size:0.82rem;color:#777;margin-top:0.2rem;">${item.detail}</div>
+        </div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--navy2);white-space:nowrap;">${item.price}</div>`;
+      list.appendChild(div);
+    });
+
+    // Contact
+    const phoneEl = $('contact-phone-link');
+    phoneEl.href = `tel:${S.phone.replace(/\D/g,'')}`;
+    phoneEl.textContent = `📞 ${S.phone}`;
+    const emailEl = $('contact-email-link');
+    emailEl.href = `mailto:${S.email}`;
+    emailEl.textContent = S.email;
+    set('contact-location', S.location);
+
+    // Footer
+    set('footer-text', `© ${new Date().getFullYear()} ${S.businessName} · ${S.location}`);
+
+    // Page title
+    document.title = S.businessName;
+  }
+
+  // ── Scroll-reveal ─────────────────────────────────
+  function initReveal() {
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  }
+
+  // ── Smooth scroll for nav links ───────────────────
+  document.querySelectorAll('nav a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── Boot ──────────────────────────────────────────
+  renderSite();
+  initReveal();
+</script>
+
+</body>
+</html>
