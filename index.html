@@ -13,11 +13,15 @@
       phone:        "647-220-3060",
       email:        "muskokasailing2026@gmail.com",
       location:     "Muskoka, ON",
-      nav: { home:"Home", about:"About Us", prices:"Prices", schedule:"Schedule", contact:"Contact" },
+      nav: { home:"Home", services:"Services", about:"About Us", prices:"Prices", schedule:"Schedule", contact:"Contact" },
       hero: {
         heading:    "Learn to Sail with Confidence",
         subheading: "Our unique two-coach system puts one instructor on your boat and one coach on a motorboat — so you get real-time feedback both on deck and from the water.",
         ctaLabel:   "Book a Lesson",
+      },
+      services: {
+        heading: "What We Do",
+        body: "Our team comes to your house with our coach boat. While one member of our team is on the boat teaching in real time, the other member is watching, giving tips, and filming for post-session lessons and debrief.",
       },
       about: {
         heading: "Meet Your Coaches",
@@ -96,6 +100,28 @@
 
     footer { background:var(--navy); color:rgba(255,255,255,0.55); }
     footer a { color:var(--gold); text-decoration:none; }
+
+    /* ── Services ── */
+    .services-textbox {
+      background: white;
+      border-radius: 14px;
+      border: 2px solid var(--gold);
+      padding: 2.2rem 2.4rem;
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: #3a3a3a;
+      box-shadow: 0 4px 24px rgba(10,31,60,0.08);
+      position: relative;
+    }
+    .services-textbox::before {
+      content: '⛵';
+      position: absolute;
+      top: -1.1rem;
+      left: 2rem;
+      font-size: 1.6rem;
+      background: var(--cream);
+      padding: 0 0.4rem;
+    }
 
     /* ══ SCHEDULE ══ */
     .schedule-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:0.6rem; }
@@ -235,6 +261,7 @@
     <span style="color:var(--gold);font-family:'Playfair Display',serif;font-size:1rem;padding:0.75rem 0;font-weight:800;letter-spacing:0.03em;" id="nav-brand"></span>
     <div>
       <a href="#home" id="nav-home"></a>
+      <a href="#services" id="nav-services"></a>
       <a href="#about" id="nav-about"></a>
       <a href="#prices" id="nav-prices"></a>
       <a href="#schedule" id="nav-schedule"></a>
@@ -283,6 +310,16 @@
     <path d="M0,50 C150,100 350,0 500,50 C650,100 800,0 1000,50 C1100,75 1150,60 1200,50 L1200,100 L0,100 Z" fill="white"/>
     <path d="M0,70 C200,30 400,90 600,60 C800,30 1000,80 1200,60 L1200,100 L0,100 Z" fill="white" opacity="0.5"/>
   </svg>
+</section>
+
+<!-- Services -->
+<section id="services" style="padding:4.5rem 1.5rem;background:white;">
+  <div style="max-width:800px;margin:auto;" class="reveal">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title" id="services-heading"></h2>
+    <div class="gold-rule" style="margin:1rem 0 2rem;"></div>
+    <div class="services-textbox" id="services-body"></div>
+  </div>
 </section>
 
 <!-- About -->
@@ -537,6 +574,7 @@
     const S = SITE;
     set('nav-brand',      S.businessName);
     set('nav-home',       S.nav.home);
+    set('nav-services',   S.nav.services);
     set('nav-about',      S.nav.about);
     set('nav-prices',     S.nav.prices);
     set('nav-schedule',   S.nav.schedule);
@@ -545,6 +583,8 @@
     set('hero-heading',   S.hero.heading);
     set('hero-sub',       S.hero.subheading);
     set('hero-cta',       S.hero.ctaLabel);
+    set('services-heading', S.services.heading);
+    set('services-body',    S.services.body);
     set('about-heading',  S.about.heading);
     set('about-intro',    S.about.intro);
     set('coach1-name',    S.about.coach1.name);
